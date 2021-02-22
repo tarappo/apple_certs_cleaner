@@ -22,7 +22,17 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+```
+# remove duplicate certificate file
+AppleCertsCleaner.remove_duplicate_certificate
+
+# remove expired files
+AppleCertsCleaner.remove_expired_certificate
+AppleCertsCleaner.remove_expired_provisioning_profile
+
+# remove invalid(revoked) certificate file
+AppleCertsCleaner.remove_invalid_certificate
+```
 
 ## Development
 
