@@ -63,10 +63,12 @@ module AppleCertsCleaner
   end
 
   private
+  # delete keychain using sha1
   def self.delete_keychain_for(sha1:)
     result = `security delete-certificate -Z #{sha1}`
   end
 
+  # delete keychain using name
   def self.delete_first_match_keychain(name:)
     result = `security find-certificate -a -c "#{name}" -Z`
     sha_match = result.match(/SHA-1 hash: (.*)/)
