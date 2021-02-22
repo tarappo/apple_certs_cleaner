@@ -3,7 +3,17 @@ RSpec.describe AppleCertsCleaner do
     expect(AppleCertsCleaner::VERSION).not_to be nil
   end
 
-  it "does something useful" do
-    expect(false).to eq(true)
+  xit "remove pp file" do
+    AppleCertsCleaner.remove_expired_provisioning_profile
+  end
+
+  xit "remove cert file" do
+    AppleCertsCleaner.remove_expired_certificate
+  end
+
+  xit "remove invalid cert file" do
+    AppleCertsCleaner.remove_invalid_certificate
   end
 end
+
+
