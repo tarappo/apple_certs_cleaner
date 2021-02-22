@@ -2,7 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bad0e46d-329b-4e98-9555-178826c9a104" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gemfile" beforeDir="false" afterPath="$PROJECT_DIR$/Gemfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/apple_certs_cleaner.rb" beforeDir="false" afterPath="$PROJECT_DIR$/lib/apple_certs_cleaner.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spec/apple_certs_cleaner_spec.rb" beforeDir="false" afterPath="$PROJECT_DIR$/spec/apple_certs_cleaner_spec.rb" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,7 +38,7 @@
       <option name="presentableId" value="Default" />
       <updated>1613957172072</updated>
       <workItem from="1613957173552" duration="162000" />
-      <workItem from="1613957351508" duration="967000" />
+      <workItem from="1613957351508" duration="6586000" />
     </task>
     <servers />
   </component>
