@@ -6,14 +6,8 @@ module AppleCertsCleaner
   # Remove duplicate Certificate files
   # note: remove first data
   def self.remove_duplicate_certificate
-    list = []
+    duplicate_cname = all_certs_list.group_by{ |e| e[:cname] }.select { |k, v| v.size > 1 }.map(&:first)
 
-    dist_list = AppleCertsInfo.certificate_distribution_list
-    develop_list = AppleCertsInfo.certificate_development_list
-    list.concat(dist_list) unless dist_list.nil?
-    list.concat(develop_list) unless develop_list.nil?
-
-    duplicate_cname = list.group_by{ |e| e[:cname] }.select { |k, v| v.size > 1 }.map(&:first)
     duplicate_cname.each do |cname|
       delete_first_match_keychain(name: cname)
     end
@@ -21,18 +15,8 @@ module AppleCertsCleaner
 
   # Remove expired Certificate files
   def self.remove_expired_certificate
-    list = []
-
-    dist_list = AppleCertsInfo.certificate_distribution_list
-    develop_list = AppleCertsInfo.certificate_development_list
-    list.concat(dist_list) unless dist_list.nil?
-    list.concat(develop_list) unless develop_list.nil?
-
-    list.each do |certificate|
-      puts certificate
-
+    all_certs_list.each do |certificate|
       if certificate[:limit_days].to_i < 0
-        puts "Delete Certificate file: #{certificate[:cname]}（expired: #{certificate[:limit_days]}）"
         delete_first_match_keychain(name: certificate[:cname])
       end
     end
@@ -40,9 +24,9 @@ module AppleCertsCleaner
 
   # Remove expired Provisioning Profile
   def self.remove_expired_provisioning_profile
-    list = AppleCertsInfo.provisioning_profile_list
+    pp_list = AppleCertsInfo.provisioning_profile_list
 
-    list.each do |pp_file|
+    pp_list.each do |pp_file|
       next if pp_file[:file_path].nil?
 
       if pp_file[:limit_days].to_i < 0
@@ -65,6 +49,8 @@ module AppleCertsCleaner
   private
   # delete keychain using sha1
   def self.delete_keychain_for(sha1:)
+    raise "not exits sha-1" if sha1.nil?
+
     puts "Delete Certificate file: SHA-1 #{sha1}"
     result = `security delete-certificate -Z #{sha1}`
   end
@@ -76,9 +62,22 @@ module AppleCertsCleaner
     keychain_path = result.match(/keychain: (.*)/)
     raise "not exits sha-1" if sha_match.nil?
     raise "not exits keychain_path" if keychain_path.nil?
+
     sha1 = sha_match[1]
     puts "Delete Certificate file: #{name} / SHA-1: #{sha1}"
 
     result = `security delete-certificate -Z #{sha1} #{keychain_path[1]}`
+  end
+
+  # All Development / Distribution list
+  def self.all_certs_list
+    all_certs_list = []
+
+    dist_list = AppleCertsInfo.certificate_distribution_list
+    develop_list = AppleCertsInfo.certificate_development_list
+    all_certs_list.concat(dist_list) unless dist_list.nil?
+    all_certs_list.concat(develop_list) unless develop_list.nil?
+
+    return all_certs_list
   end
 end
