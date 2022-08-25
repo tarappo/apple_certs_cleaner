@@ -38,7 +38,7 @@ module AppleCertsCleaner
 
   # Remove revoked Certificate files
   def self.remove_invalid_certificate
-    result = `security find-identity  -v -p codesigning`
+    result = `security find-identity -p codesigning`
     invalid_cert_sha1 = result.scan(/[0-9]+\) ([a-zA-Z0-9]+) \".*\" .*CSSMERR_TP_CERT_REVOKED.*/)
 
     invalid_cert_sha1.each do |sha1|
