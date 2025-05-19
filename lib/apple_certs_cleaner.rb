@@ -49,7 +49,7 @@ module AppleCertsCleaner
   private
   # delete keychain using sha1
   def self.delete_keychain_for(sha1:)
-    raise "not exits sha-1" if sha1.nil?
+    raise "SHA-1 does not exist" if sha1.nil?
 
     puts "Delete Certificate file: SHA-1 #{sha1}"
     result = `security delete-certificate -Z #{sha1}`
@@ -60,8 +60,8 @@ module AppleCertsCleaner
     result = `security find-certificate -a -c "#{name}" -Z`
     sha_match = result.match(/SHA-1 hash: (.*)/)
     keychain_path = result.match(/keychain: (.*)/)
-    raise "not exits sha-1" if sha_match.nil?
-    raise "not exits keychain_path" if keychain_path.nil?
+    raise "SHA-1 does not exist" if sha_match.nil?
+    raise "keychain path does not exist" if keychain_path.nil?
 
     sha1 = sha_match[1]
     puts "Delete Certificate file: #{name} / SHA-1: #{sha1}"
