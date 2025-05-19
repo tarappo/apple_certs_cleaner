@@ -1,4 +1,6 @@
 require "bundler/setup"
+$LOAD_PATH.unshift File.expand_path("support", __dir__)
+require "apple_certs_info"
 require "apple_certs_cleaner"
 
 RSpec.configure do |config|
